@@ -82,11 +82,8 @@ struct PromptTextView: View {
 ///   - 최대 5자까지 입력 가능
 ///   - Placeholder 표시
 struct CustomTextField: View {
-    /// 입력된 텍스트
     @Binding var text: String
-    /// Placeholder 텍스트
     let placeholder: String
-    /// 텍스트 필드의 포커스 상태
     @FocusState private var isFocused: Bool
     
     var body: some View {
@@ -108,8 +105,8 @@ struct CustomTextField: View {
                 .foregroundColor(Color("myGrey05"))
                 .multilineTextAlignment(.center)
         }
-        .frame(height: 125) // 고정 높이
-        .padding(.horizontal, 20) // 수평 여백
+        .frame(height: 125)
+        .padding(.horizontal, 20) 
         .background(
             RoundedRectangle(cornerRadius: 30)
                 .fill(Color("myGrey07"))
