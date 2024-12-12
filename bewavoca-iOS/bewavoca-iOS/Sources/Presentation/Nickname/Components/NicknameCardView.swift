@@ -25,34 +25,32 @@ struct NicknameCardView: View {
     @Binding var nickname: String
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 95)
-                .fill(Color.white)
-                .shadow(radius: 5)
-            
-            HStack(spacing: 40) {
-                Image(selectedCharacter)
+        GeometryReader { geometry in
+            ZStack {
+                RoundedRectangle(cornerRadius: geometry.size.height * 0.2)
+                    .fill(Color.white)
+                    .shadow(radius: 5)
                 
-                VStack(alignment: .center, spacing: 15) {
-                    PromptTextView(text: text)
-                    Spacer().frame(height: 5)
-                    CustomTextField(text: $nickname, placeholder: "하르방")
-                        .frame(
-                            width: UIScreen.main.bounds.width * 0.225
-                            // width: 305
-                        )
-                    InputLimitInfoView(infoText: "5자까지 입력할 수 있어요")
+                HStack(spacing: geometry.size.width * 0.05) {
+                    Image(selectedCharacter)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: geometry.size.width * 0.415)
+                    
+                    VStack(alignment: .center, spacing: geometry.size.height * 0.03) {
+                        PromptTextView(text: text, screenSize: geometry.size)
+                        Spacer().frame(height: geometry.size.height * 0.01)
+                        CustomTextField(text: $nickname, placeholder: "하르방", screenSize: geometry.size)
+                            .frame(width: geometry.size.width * 0.38)
+                        InputLimitInfoView(infoText: "5자까지 입력할 수 있어요", screenSize: geometry.size)
+                    }
                 }
             }
-            .padding(20)
         }
         .frame(
-            width: UIScreen.main.bounds.width * 0.585,
-            height: UIScreen.main.bounds.height * 0.435
+            width: UIScreen.main.bounds.width * 0.625,
+            height: UIScreen.main.bounds.height * 0.45
         )
-        //          < 12.9inch size >
-        //            width: 811,
-        //            height: 463
     }
 }
 
@@ -64,13 +62,14 @@ struct NicknameCardView: View {
 struct PromptTextView: View {
     let greeting: String = "혼저옵서!"
     let text: String
+    let screenSize: CGSize
     
     var body: some View {
-        VStack(alignment: .center, spacing: 15) {
+        VStack(alignment: .center, spacing: screenSize.height * 0.02) {
             Text(greeting)
             Text(text)
         }
-        .font(.custom("GmarketSansMedium", size: 50))
+        .font(.custom("GmarketSansMedium", size: screenSize.height * 0.1))
         .foregroundColor(Color("myDarkBlue"))
         .multilineTextAlignment(.center)
     }
@@ -85,6 +84,7 @@ struct PromptTextView: View {
 struct CustomTextField: View {
     @Binding var text: String
     let placeholder: String
+    let screenSize: CGSize
     @FocusState private var isFocused: Bool
     
     var body: some View {
@@ -104,20 +104,20 @@ struct CustomTextField: View {
             }
             #endif
             #endif
-            .font(.custom("GmarketSansBold", size: 50))
+            .font(.custom("GmarketSansBold", size: screenSize.height * 0.125))
             .foregroundColor(.black)
             .multilineTextAlignment(.center)
             .focused($isFocused) // 포커스 상태 바인딩
             .placeholder(when: text.isEmpty && !isFocused) { // Placeholder 표시 조건
                 Text(placeholder)
-                    .font(.custom("GmarketSansBold", size: 50))
+                    .font(.custom("GmarketSansBold", size: screenSize.height * 0.1))
                     .foregroundColor(Color("myGrey05"))
                     .multilineTextAlignment(.center)
             }
-            .frame(height: 125)
-            .padding(.horizontal, 20) 
+            .frame(height: screenSize.height * 0.28)
+            .padding(.horizontal, screenSize.width * 0.025)
             .background(
-                RoundedRectangle(cornerRadius: 30)
+                RoundedRectangle(cornerRadius: screenSize.height * 0.06)
                     .fill(Color("myGrey07"))
             )
     }
@@ -127,10 +127,11 @@ struct CustomTextField: View {
 /// 입력 제한 안내 텍스트를 표시하는 뷰
 struct InputLimitInfoView: View {
     let infoText: String
+    let screenSize: CGSize
     
     var body: some View {
         Text(infoText)
-            .font(.custom("GmarketSansMedium", size: 25))
+            .font(.custom("GmarketSansMedium", size: screenSize.height * 0.06))
             .foregroundColor(Color("myDarkBlue"))
     }
 }

@@ -29,12 +29,14 @@ struct CreateNicknameView: View {
                 Color("myDarkBlue")
                     .ignoresSafeArea()
 
-                VStack(spacing: 30) {
-                    Image("maintitle")
-                        .frame(height: geometry.size.height * 0.15)
+                VStack(spacing: geometry.size.height * 0.02) {
+                    Image("text_maintitle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: geometry.size.width * 0.2)
                         .padding(.top, geometry.size.height * 0.05)
 
-                    Spacer()
+                    Spacer().frame(height: geometry.size.height * 0.02)
                     
                     // MARK: - CardView
                     ///  selectedCharacter - 메인 캐릭터
@@ -45,7 +47,7 @@ struct CreateNicknameView: View {
                         text: "이름을 알려줘",
                         nickname: $nickname
                     )
-                    .frame(height: geometry.size.height * 0.1)
+                    .frame(height: geometry.size.height * 0.5)
 
                     Spacer()
 
@@ -56,11 +58,14 @@ struct CreateNicknameView: View {
                         }
                     }) {
                         // 버튼의 이미지가 활성화 여부에 따라 다르게 표시
-                        Image(isButtonEnabled ? "button_start_default" : "button_start_pressed")
+                        Image(isButtonEnabled ? "button_start_pressed" : "button_start_default")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geometry.size.width * 0.35)
                     }
                     // 버튼이 비활성화 상태일 때는 눌리지 않도록 설정
                     .disabled(!isButtonEnabled)
-                    .padding(.bottom, geometry.size.height * 0.05)
+                    .padding(.bottom, geometry.size.height * 0.04)
                 }
                 .padding(.horizontal)
             }
