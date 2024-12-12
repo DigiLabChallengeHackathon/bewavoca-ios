@@ -81,36 +81,45 @@ struct PromptTextView: View {
 /// - 특징:
 ///   - 최대 5자까지 입력 가능
 ///   - Placeholder 표시
+///   - ios 버전에 따른 조건부 컴파일 - onChange가 iOS 17이하에서는 지원하지 않는다고 합니다.
 struct CustomTextField: View {
     @Binding var text: String
     let placeholder: String
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        TextField("", text: Binding(
-            get: { text },
-            set: { newValue in
-                if newValue.count <= 5 {
-                    text = newValue
+        TextField("", text: $text)
+            #if os(iOS)
+            #if compiler(>=5.9)
+            .onChange(of: text) { oldValue, newValue in
+                if newValue.count > 5 {
+                    text = String(newValue.prefix(5))
                 }
             }
-        ))
-        .font(.custom("GmarketSansBold", size: 50))
-        .foregroundColor(.black)
-        .multilineTextAlignment(.center)
-        .focused($isFocused) // 포커스 상태 바인딩
-        .placeholder(when: text.isEmpty && !isFocused) { // Placeholder 표시 조건
-            Text(placeholder)
-                .font(.custom("GmarketSansBold", size: 50))
-                .foregroundColor(Color("myGrey05"))
-                .multilineTextAlignment(.center)
-        }
-        .frame(height: 125)
-        .padding(.horizontal, 20) 
-        .background(
-            RoundedRectangle(cornerRadius: 30)
-                .fill(Color("myGrey07"))
-        )
+            #else
+            .onChange(of: text) { newValue in
+                if newValue.count > 5 {
+                    text = String(newValue.prefix(5))
+                }
+            }
+            #endif
+            #endif
+            .font(.custom("GmarketSansBold", size: 50))
+            .foregroundColor(.black)
+            .multilineTextAlignment(.center)
+            .focused($isFocused) // 포커스 상태 바인딩
+            .placeholder(when: text.isEmpty && !isFocused) { // Placeholder 표시 조건
+                Text(placeholder)
+                    .font(.custom("GmarketSansBold", size: 50))
+                    .foregroundColor(Color("myGrey05"))
+                    .multilineTextAlignment(.center)
+            }
+            .frame(height: 125)
+            .padding(.horizontal, 20) 
+            .background(
+                RoundedRectangle(cornerRadius: 30)
+                    .fill(Color("myGrey07"))
+            )
     }
 }
 
