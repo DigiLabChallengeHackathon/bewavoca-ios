@@ -41,7 +41,7 @@ struct CreateNicknameView: View {
                     ///  text: 인삿말 다음 올 텍스트, 이름 변경 시 재활용을 위해 별도로 만듦
                     ///  nickname: 닉네임을 담을 variable
                     NicknameCardView(
-                        selectedCharacter: "profile_harvang",
+                        selectedCharacter: "character_card_harbang",
                         text: "이름을 알려줘",
                         nickname: $nickname
                     )
@@ -56,7 +56,7 @@ struct CreateNicknameView: View {
                         }
                     }) {
                         // 버튼의 이미지가 활성화 여부에 따라 다르게 표시
-                        Image(isButtonEnabled ? "startButton_pressed" : "startButton_default")
+                        Image(isButtonEnabled ? "button_start_default" : "button_start_pressed")
                     }
                     // 버튼이 비활성화 상태일 때는 눌리지 않도록 설정
                     .disabled(!isButtonEnabled)

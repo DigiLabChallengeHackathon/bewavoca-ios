@@ -149,7 +149,7 @@ extension View {
 // MARK: - Preview
 #Preview {
     NicknameCardView(
-        selectedCharacter: "profile_harvang",
+        selectedCharacter: "character_card_harbang",
         text: "이름을 알려줘!",
         nickname: .constant("테스트")
     )
