@@ -5,6 +5,7 @@ struct TimeProgressBar: View {
     @ObservedObject var manager: TimeProgressBarManager
     let fillColor: Color
     let warningColor: Color
+    let onComplete: (() -> Void)?
 
     @State private var animateWarning: Bool = false
 
@@ -49,8 +50,12 @@ struct TimeProgressBar: View {
             }
             .frame(height: 60)
         }
+        .onAppear {
+            manager.onComplete = onComplete
+        }
     }
 }
+
 
 // MARK: - Timer Manager
 class TimeProgressBarManager: ObservableObject {
@@ -121,7 +126,8 @@ struct TimeProgressBarView: View {
             TimeProgressBar(
                 manager: progressBarManager,
                 fillColor: Color("myYellow"),
-                warningColor: Color("myRed")
+                warningColor: Color("myRed"),
+                onComplete: {print("타이머 종료")}
             )
 
             HStack {
