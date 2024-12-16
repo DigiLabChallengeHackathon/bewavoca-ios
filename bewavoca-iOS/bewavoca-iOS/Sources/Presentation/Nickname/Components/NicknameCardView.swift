@@ -1,14 +1,3 @@
-//
-//  NicknameCardView.swift
-//  bewavoca-iOS
-//
-//  Created by Muchan Kim on 12/11/24.
-//
-//  반응형 레이아웃 관련하여, 텍스트 필드나 프레임은 적용하였으나
-//  일부 리소스는 못 구현한 상태입니다.
-// 12.9inch, 13inch는 괜찮으나, 11인치 모델에서 각 컴포넌트의 크기가 맞지 않아 깨지는 현상이 있습니다.
-//
-
 import SwiftUI
 
 // MARK: - NicknameCardView
@@ -25,32 +14,27 @@ struct NicknameCardView: View {
     @Binding var nickname: String
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                RoundedRectangle(cornerRadius: geometry.size.height * 0.2)
-                    .fill(Color.white)
-                    .shadow(radius: 5)
+        ZStack {
+            RoundedRectangle(cornerRadius: 95)
+                .fill(Color.white)
+                .frame(width: 811, height: 463)
+                .shadow(radius: 10)
+            
+            HStack(spacing: 10) {
+                Image(selectedCharacter)
+                    .frame(width: 344)
+                    .cornerRadius(65)
                 
-                HStack(spacing: geometry.size.width * 0.05) {
-                    Image(selectedCharacter)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: geometry.size.width * 0.415)
-                    
-                    VStack(alignment: .center, spacing: geometry.size.height * 0.03) {
-                        PromptTextView(text: text, screenSize: geometry.size)
-                        Spacer().frame(height: geometry.size.height * 0.01)
-                        CustomTextField(text: $nickname, placeholder: "하르방", screenSize: geometry.size)
-                            .frame(width: geometry.size.width * 0.38)
-                        InputLimitInfoView(infoText: "5자까지 입력할 수 있어요", screenSize: geometry.size)
-                    }
+                VStack(alignment: .center, spacing: 15) {
+                    PromptTextView(text: text)
+                    Spacer().frame(height: 5)
+                    CustomTextField(text: $nickname, placeholder: "하르방")
+                        .frame(width: 325)
+                    InputLimitInfoView(infoText: "5자까지 입력할 수 있어요")
                 }
+                .padding(.leading, 30)
             }
         }
-        .frame(
-            width: UIScreen.main.bounds.width * 0.625,
-            height: UIScreen.main.bounds.height * 0.45
-        )
     }
 }
 
@@ -58,18 +42,17 @@ struct NicknameCardView: View {
 /// 인삿말 및 안내 텍스트를 표시하는 뷰
 /// - 주요 구성:
 ///   - 상단 인삿말 텍스트
-///   - 하단 안내 텍스트
 struct PromptTextView: View {
     let greeting: String = "혼저옵서!"
     let text: String
-    let screenSize: CGSize
     
     var body: some View {
-        VStack(alignment: .center, spacing: screenSize.height * 0.02) {
+        VStack(alignment: .center, spacing: 16) {
+            Spacer().frame(height: 10)
             Text(greeting)
             Text(text)
         }
-        .font(.custom("GmarketSansMedium", size: screenSize.height * 0.1))
+        .font(.custom("GmarketSansMedium", size: 50)) // iPad 12.9" 기준 크기
         .foregroundColor(Color("myDarkBlue"))
         .multilineTextAlignment(.center)
     }
@@ -80,12 +63,12 @@ struct PromptTextView: View {
 /// - 특징:
 ///   - 최대 5자까지 입력 가능
 ///   - Placeholder 표시
-///   - ios 버전에 따른 조건부 컴파일 - onChange가 iOS 17이하에서는 지원하지 않는다고 합니다.
+///   - ios 버전에 따른 조건부 컴파일
 struct CustomTextField: View {
     @Binding var text: String
-    let placeholder: String
-    let screenSize: CGSize
     @FocusState private var isFocused: Bool
+    
+    let placeholder: String
     
     var body: some View {
         TextField("", text: $text)
@@ -104,20 +87,20 @@ struct CustomTextField: View {
             }
             #endif
             #endif
-            .font(.custom("GmarketSansBold", size: screenSize.height * 0.125))
+            .font(.custom("GmarketSansBold", size: 50))
             .foregroundColor(.black)
             .multilineTextAlignment(.center)
-            .focused($isFocused) // 포커스 상태 바인딩
-            .placeholder(when: text.isEmpty && !isFocused) { // Placeholder 표시 조건
+            .focused($isFocused)
+            .placeholder(when: text.isEmpty && !isFocused) {
                 Text(placeholder)
-                    .font(.custom("GmarketSansBold", size: screenSize.height * 0.1))
+                    .font(.custom("GmarketSansBold", size: 50))
                     .foregroundColor(Color("myGrey05"))
                     .multilineTextAlignment(.center)
             }
-            .frame(height: screenSize.height * 0.28)
-            .padding(.horizontal, screenSize.width * 0.025)
+            .frame(height: 125)
+            .padding(.horizontal, 20)
             .background(
-                RoundedRectangle(cornerRadius: screenSize.height * 0.06)
+                RoundedRectangle(cornerRadius: 22)
                     .fill(Color("myGrey07"))
             )
     }
@@ -127,11 +110,10 @@ struct CustomTextField: View {
 /// 입력 제한 안내 텍스트를 표시하는 뷰
 struct InputLimitInfoView: View {
     let infoText: String
-    let screenSize: CGSize
     
     var body: some View {
         Text(infoText)
-            .font(.custom("GmarketSansMedium", size: screenSize.height * 0.06))
+            .font(.custom("GmarketSansMedium", size: 25))
             .foregroundColor(Color("myDarkBlue"))
     }
 }

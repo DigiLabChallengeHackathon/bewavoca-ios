@@ -17,60 +17,65 @@ import SwiftUI
 struct CreateNicknameView: View {
     @State private var nickname: String = ""
     @State private var isButtonPressed: Bool = false
-
+    
     private var isButtonEnabled: Bool {
         return nickname.count >= 1
     }
-
-    // MARK: - Body
+    
     var body: some View {
-        GeometryReader { geometry in
+        DeviceScaledView {
             ZStack {
                 Color("myDarkBlue")
                     .ignoresSafeArea()
-
-                VStack(spacing: geometry.size.height * 0.02) {
-                    Image("text_maintitle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: geometry.size.width * 0.2)
-                        .padding(.top, geometry.size.height * 0.05)
-
-                    Spacer().frame(height: geometry.size.height * 0.02)
+                
+                VStack(spacing: 70) {
+                    TitleView()
                     
-                    // MARK: - CardView
-                    ///  selectedCharacter - 메인 캐릭터
-                    ///  text: 인삿말 다음 올 텍스트, 이름 변경 시 재활용을 위해 별도로 만듦
-                    ///  nickname: 닉네임을 담을 variable
                     NicknameCardView(
                         selectedCharacter: "character_card_harbang",
                         text: "이름을 알려줘",
-                        nickname: $nickname
+                        nickname: $nickname  // 추후 $viewModel.nickname와 같이 사용하면 됨.
                     )
-                    .frame(height: geometry.size.height * 0.5)
 
-                    Spacer()
+                    // 추후 viewModel에서 버튼 상태 관리, 유저 생성 기능까지 추가할 것.
+                    StartButtonView(
+                        isButtonPressed: $isButtonPressed,
+                        isButtonEnabled: isButtonEnabled
 
-                    Button(action: {
-                        // 버튼이 활성화된 상태에서만 눌리도록
-                        if isButtonEnabled {
-                            isButtonPressed.toggle()
-                        }
-                    }) {
-                        // 버튼의 이미지가 활성화 여부에 따라 다르게 표시
-                        Image(isButtonEnabled ? "button_start_pressed" : "button_start_default")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geometry.size.width * 0.35)
-                    }
-                    // 버튼이 비활성화 상태일 때는 눌리지 않도록 설정
-                    .disabled(!isButtonEnabled)
-                    .padding(.bottom, geometry.size.height * 0.04)
+                        // isEnabled: viewModel.isButtonEnabled, isLoading: viewModel.isLoading
+                    )   // viewModel.createUser()
                 }
-                .padding(.horizontal)
             }
         }
         .ignoresSafeArea(.keyboard)
+    }
+}
+
+// MARK: - TitleView
+// 상단 제목 타이틀 뷰
+struct TitleView: View {
+    var body: some View {
+        Image("text_maintitle")
+            .frame(width: 293)
+    }
+}
+
+// MARK: - StartButtonView
+// 하단 버튼 뷰
+struct StartButtonView: View {
+    @Binding var isButtonPressed: Bool
+    let isButtonEnabled: Bool
+    
+    var body: some View {
+        Button(action: {
+            if isButtonEnabled {
+                isButtonPressed.toggle()
+            }
+        }) {
+            Image(isButtonEnabled ? "button_start_pressed" : "button_start_default")
+                .frame(height: 157)
+        }
+        .disabled(!isButtonEnabled)
     }
 }
 
