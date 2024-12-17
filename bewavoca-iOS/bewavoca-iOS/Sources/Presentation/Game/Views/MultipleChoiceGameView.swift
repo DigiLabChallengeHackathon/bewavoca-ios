@@ -4,22 +4,17 @@ struct MultipleChoiceGameView: View {
     var body: some View {
         DeviceScaledView {
             BackgroundRectangleView {
-                GeometryReader { geometry in
-                    NavigationStack{
+                NavigationStack{
+                    VStack {
+                        MultipleGameTopView()
                         
-                        VStack {
-                            MultipleGameTopView()
-                            
-                            MultipleGameBodyView()
-                            
-                            Spacer()
-                        }
-                        .background(Color.clear)
-                        .padding(.top, 54)
-                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        MultipleGameBodyView()
+                        
+                        Spacer()
                     }
+                    .background(Color.clear)
+                    .padding(.top, 54)
                 }
-                
             }
         }
     }
