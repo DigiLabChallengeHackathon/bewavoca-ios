@@ -52,21 +52,24 @@ struct MapView: View {
                 .buttonStyle(BaseButtonStyle()) 
             }
         }
+        .frame(width: 1102 , height: 666)
+        .background(Color.clear)
     }
     
     
     private func destinationView(for stage: Stage) -> some View {
+        print("?????????????//")
         switch stage {
         case .garden:
-            return AnyView(NextSampleView(test: "\(stage) garden"))
+            return AnyView(NextSampleGameView(test: "\(stage) garden"))
         case .plateau:
-            return AnyView(NextSampleView(test: "\(stage) plateau"))
+            return AnyView(NextSampleGameView(test: "\(stage) plateau"))
         case .village:
-            return AnyView(NextSampleView(test: "\(stage) village"))
+            return AnyView(NextSampleGameView(test: "\(stage) village"))
         case .meadow:
-            return AnyView(NextSampleView(test: "\(stage) meadow"))
+            return AnyView(NextSampleGameView(test: "\(stage) meadow"))
         case .ridge:
-            return AnyView(NextSampleView(test: "\(stage) ridge"))
+            return AnyView(NextSampleGameView(test: "\(stage) ridge"))
             
         }
     }
@@ -107,7 +110,6 @@ struct ImageMapButtonView<ShapeType: Shape>: View {
                     }
             }
         }
-        .frame(width: 1102, height: 667)
         .contentShape(shape)
     }
 }

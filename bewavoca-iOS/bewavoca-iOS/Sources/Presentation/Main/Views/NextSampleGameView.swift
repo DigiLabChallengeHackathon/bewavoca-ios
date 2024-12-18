@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct NextSampleView: View {
+struct NextSampleGameView: View {
     var test: String 
     @Environment(\.presentationMode) var presentationMode
     

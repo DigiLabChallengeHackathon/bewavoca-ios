@@ -7,11 +7,11 @@ struct TopView: View {
             VStack(alignment: .leading) {
                 ProfileCard(character: userData.character, nickName: userData.nickname)
                 
-                NavigationLink(destination: NextSampleView(test: "설정")) {
+                NavigationLink(destination: NextSampleGameView(test: "설정")) {
                     Image("btn_setting")
                 }
                 .frame(width: 78, height: 78)
-                .padding()
+                .padding(.top, 34)
                 .buttonStyle(EffectButtonStyle())
             }
             
@@ -19,7 +19,8 @@ struct TopView: View {
             
             VStack(alignment: .leading) {
                 Image("image_brand")
-                    .padding(.top)
+                    .padding(.top, 11)
+                    .frame(width: 293, height: 101)
                 Spacer()
             }
             
@@ -28,8 +29,9 @@ struct TopView: View {
             Image("image_compass")
                 .frame(width: 167, height: 151)
         }
-        .frame(height: 250)
-        .padding()
+        .frame(width:1366, height: 270)
+        .padding(.top, 52)
+        .padding(.horizontal, 46)
     }
 }
 
