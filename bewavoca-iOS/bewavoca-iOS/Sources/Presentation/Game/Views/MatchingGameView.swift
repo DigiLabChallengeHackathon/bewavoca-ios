@@ -27,8 +27,7 @@ struct MatchingGameView: View {
                             .scaledToFit()
                             .frame(maxWidth: 275)
                     }
-                    .padding(46)
-                }
+                }.padding(-43)
             }
         }
     }
@@ -102,7 +101,7 @@ struct MatchingGameBodyView: View {
                 )
             }
             .onAppear {
-                progressBarManager.start() 
+                progressBarManager.start()
             }
             .navigationDestination(isPresented: $isGameFinished) {
                 NextSampleGameView(test: "성공여부 -> \(quizzes.count) 중에 \(matchedPairs) 맞춤")
