@@ -2,20 +2,19 @@ import SwiftUI
 
 struct OXGameView: View {
     var body: some View {
-        DeviceScaledView {
-            BackgroundRectangleView {
-                    NavigationStack{
+        NavigationStack{
+            DeviceScaledView {
+                BackgroundRectangleView {
+                    VStack {
+                        // topview
+                        OXGameTopView()
                         
-                        VStack {
-                            // topview
-                            OXGameTopView()
-                            
-                            OXGameBodyView()
-                            
-                            Spacer()
-                        }
-                        .background(Color.clear)
-                        .padding(.top, 54)
+                        OXGameBodyView()
+                        
+                        Spacer()
+                    }
+                    .background(Color.clear)
+                    .padding(.top, 54)
                 }
                 
             }
@@ -76,8 +75,8 @@ struct OXGameBodyView: View {
     @StateObject private var progressBarManager = TimeProgressBarManager(duration: 15, warningTime: 5)
     
     @State private var shuffledQuizzes: [OXQuiz] = [
-        OXQuiz(oxId: 8, question: "[바나나]는 제주어로 바나나다", correctAnswer: true, explanation: "바나나는 제주어로 A입니다.", voice: nil),
-        OXQuiz(oxId: 9, question: "[딸기]는 제주어로 딸기가 아니다", correctAnswer: false, explanation: "딸기는 제주어로 B가 아닙니다.", voice: nil),
+        OXQuiz(oxId: 8, question: "[바나나]는 제주어로 바나나다", correctAnswer: true, explanation: "바나나는 제주어로 바나나입니다.", voice: nil),
+        OXQuiz(oxId: 9, question: "[딸기]는 제주어로 딸기가 아니다", correctAnswer: false, explanation: "딸기는 제주어로 딸기가 아닙니다.", voice: nil),
         OXQuiz(oxId: 10, question: "[한라봉]은 제주도의 대표 과일이다", correctAnswer: true, explanation: "한라봉은 제주도의 대표 과일로 유명합니다.", voice: nil)
     ]
     
@@ -110,7 +109,7 @@ struct OXGameBodyView: View {
                         .font(Font.custom("GmarketSansMedium", size: 40))
                         .foregroundColor(Color("myGrey01"))
                 } else {
-                    Text((selectedAnswer != nil) == shuffledQuizzes[currentQuizIndex].correctAnswer ? "정답이에요" : "오답이에요")
+                    Text((selectedAnswer != nil) && selectedAnswer == (shuffledQuizzes[currentQuizIndex].correctAnswer ? ButtonType.O : ButtonType.X) ? "정답이에요" : "오답이에요")
                         .font(Font.custom("GmarketSansMedium", size: 40))
                         .foregroundColor(shuffledQuizzes[currentQuizIndex].correctAnswer ? Color("myGreen") : Color("myRed"))
                         .padding(.bottom, 12)
@@ -131,7 +130,7 @@ struct OXGameBodyView: View {
             
             Spacer()
             
-            OXCardButtonView(selectedAnswer: $selectedAnswer, correctAnswer: shuffledQuizzes[currentQuizIndex].correctAnswer ? .O : .X) { selectedAnswer in
+            OXCardButtonView(selectedAnswer: $selectedAnswer, correctAnswer: shuffledQuizzes[currentQuizIndex].correctAnswer == true ? ButtonType.O : ButtonType.X) { selectedAnswer in
                 self.selectedAnswer = selectedAnswer
                 self.isTimeOver = true
                 self.isButtonDisabled = true
@@ -145,7 +144,8 @@ struct OXGameBodyView: View {
             .padding(.bottom, 132)
             .disabled(isButtonDisabled)
             .navigationDestination(isPresented: $isOXGameFinished) {
-                NextSampleGameView(test: "맞춘갯수 \(correctCount)/총문제 \(shuffledQuizzes.count)")
+                // stage 는 추후 변경해야함
+//                ResultGameView(totalQuestions: shuffledQuizzes.count, correctAnswers: correctCount, stage: .garden, gameType: .ox)
             }
             
         }
@@ -160,7 +160,7 @@ struct OXGameBodyView: View {
     
     private func moveToNextQuiz() {
         if selectedAnswer != nil {
-            if selectedAnswer == (shuffledQuizzes[currentQuizIndex].correctAnswer ? .O : .X) {
+            if selectedAnswer == (shuffledQuizzes[currentQuizIndex].correctAnswer ? ButtonType.O : ButtonType.X) {
                 correctCount += 1
             }
         }
