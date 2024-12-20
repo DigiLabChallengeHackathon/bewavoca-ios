@@ -5,7 +5,6 @@ struct OXGameView: View {
         NavigationStack{
             DeviceScaledView {
                 BackgroundRectangleView {
-                    
                     VStack {
                         // topview
                         OXGameTopView()
@@ -15,7 +14,6 @@ struct OXGameView: View {
                         Spacer()
                     }
                     .background(Color.clear)
-                    .padding(.top, 54)
                 }
                 
             }
