@@ -4,7 +4,6 @@ struct OXGameView: View {
     var body: some View {
         DeviceScaledView {
             BackgroundRectangleView {
-                GeometryReader { geometry in
                     NavigationStack{
                         
                         VStack {
@@ -17,8 +16,6 @@ struct OXGameView: View {
                         }
                         .background(Color.clear)
                         .padding(.top, 54)
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-                    }
                 }
                 
             }
