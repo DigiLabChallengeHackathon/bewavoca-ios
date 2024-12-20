@@ -29,7 +29,7 @@ struct BottomView: View {
         .padding(.horizontal, 46)
         .padding(.bottom, 113)
         .fullScreenCover(isPresented: $showCharacterSelect) {
-            CharacterSelectView(
+            CharacterSelectionView(
                 userClearedStage: userData.stage,
                 currentCharacter: userData.character,
                 updateCharacter: { selectedCharacter in

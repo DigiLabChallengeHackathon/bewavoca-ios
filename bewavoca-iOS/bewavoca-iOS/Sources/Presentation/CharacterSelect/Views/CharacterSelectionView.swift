@@ -11,7 +11,7 @@
 
 import SwiftUI
 
-struct CharacterSelectView: View {
+struct CharacterSelectionView: View {
     // 뷰 닫기 액션을 위한 환경 변수
     @Environment(\.dismiss) private var dismiss
     
@@ -64,5 +64,5 @@ struct CharacterSelectView: View {
 
 // MARK: - Preview
 #Preview {
-    CharacterSelectView(userClearedStage: 5, currentCharacter: 1, updateCharacter: { _ in })
+    CharacterSelectionView(userClearedStage: 5, currentCharacter: 1, updateCharacter: { _ in })
 }
