@@ -22,12 +22,15 @@ struct TopView: View {
                     .padding(.top, 11)
                     .frame(width: 293, height: 101)
                 Spacer()
-            }
+            }.frame(alignment: .center)
             
             Spacer()
             
-            Image("image_compass")
-                .frame(width: 167, height: 151)
+            VStack {
+                Image("image_compass")
+                    .frame(width: 167, height: 151)
+                Spacer()
+            }
         }
         .frame(width:1366, height: 270)
         .padding(.top, 52)
