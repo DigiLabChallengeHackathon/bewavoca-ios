@@ -21,7 +21,6 @@ enum GameType: CaseIterable, CustomStringConvertible {
     }
 }
 
-
 struct ResultGameView: View {
     
     @State private var userData = UserData(userId: 4, nickname: "김태인", character: 1, stage: 4, level: 1)
@@ -38,17 +37,21 @@ struct ResultGameView: View {
                     Image("text_maintitle")
                         .frame(width: 293, height: 101)
                         .padding(.top, 67)
-                        .padding(.bottom, 71)
+                        .padding(.bottom, 134)
                     
                     ZStack(alignment: .top) {
                         BackgroundResizeRectangleView(width: 812, height: 554) {
                             VStack {
                                 HStack(alignment: .top) {
-                                    Image("image_result_character_big_1")
-                                        .resizable()
-                                        .frame(width: 345, height: 438)
-                                        .padding(.trailing, 45)
-                                        .padding(.top, 52)
+                                    VStack{
+                                        Spacer()
+                                        Image("image_result_character_big_1")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(height: 438)
+                                            .padding(.trailing, 45)
+                                            .padding(.top, 42)
+                                    }
                                     
                                     VStack {
                                         Text("\(getGameLevel())단계")
@@ -56,7 +59,7 @@ struct ResultGameView: View {
                                                 Font.custom("GmarketSansBold", size: 40)
                                             )
                                             .multilineTextAlignment(.center)
-                                            .padding(.top, 52)
+                                            .padding(.top, 43)
                                             .padding(.bottom, 11)
                                         
                                         ZStack {
@@ -87,7 +90,7 @@ struct ResultGameView: View {
                                         NavigationLink(destination: MainView()) {
                                             Image("btn_confirm")
                                                 .resizable()
-                                                .scaledToFit()
+                                                .scaledToFill()
                                                 .frame(width: 288, height: 143)
                                         }
                                         .buttonStyle(EffectButtonStyle())
@@ -95,7 +98,9 @@ struct ResultGameView: View {
                                         Spacer()
                                     }
                                     .padding(.top, 43)
-                                }.padding(58)
+                                }
+                                .frame(height: 438)
+                                .padding(58)
                             }
                         }
                         
@@ -127,5 +132,5 @@ struct ResultGameView: View {
 }
 
 #Preview {
-    ResultGameView(totalQuestions: 10, correctAnswers: 7, stage: .garden, gameType: .ox)
+    ResultGameView(totalQuestions: 4, correctAnswers: 2, stage: .meadow, gameType: .match)
 }
