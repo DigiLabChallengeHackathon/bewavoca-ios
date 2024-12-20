@@ -7,13 +7,10 @@ struct MultipleChoiceGameView: View {
                 NavigationStack{
                     VStack {
                         MultipleGameTopView()
-                        
                         MultipleGameBodyView()
-                        
                         Spacer()
                     }
                     .background(Color.clear)
-                    .padding(.top, 54)
                 }
             }
         }
@@ -169,9 +166,6 @@ struct MultipleChoiceGameView: View {
         }
     }
 }
-
-
-
 
 #Preview {
     MultipleChoiceGameView()
