@@ -3,10 +3,10 @@ import SwiftUI
 struct MatchingGameView: View {
     @State var currentMatchState: CardState = .defaultState
     var body: some View {
-        DeviceScaledView {
-            ZStack {
-                BackgroundRectangleView {
-                    NavigationStack {
+        NavigationStack {
+            DeviceScaledView {
+                ZStack {
+                    BackgroundRectangleView {
                         VStack {
                             MatchingGameTopView()
                             MatchingGameBodyView(currentMatchState: $currentMatchState)
@@ -43,14 +43,19 @@ struct MatchingGameView: View {
         default:
             return "image_match_character_1_default"
         }
-        
     }
     
     private struct MatchingGameTopView: View {
         var body: some View {
             HStack {
-                NavigationLink(destination: NextSampleGameView(test: "뒤로 가는 페이지")) {
-                    Image("btn_back")
+                VStack{
+                    NavigationLink(destination: NextSampleGameView(test: "뒤로 가는 페이지")) {
+                        Image("btn_back")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 78, height: 78)
+                    }
+                    Spacer()
                 }
                 
                 Spacer()
@@ -60,6 +65,7 @@ struct MatchingGameView: View {
                         .font(Font.custom("GmarketSansBold", size: 53))
                         .foregroundColor(.black)
                         .padding(.bottom, 21)
+                        .padding(.top, 12)
                     
                     Text("표준어와 의미가 같은 제주어를 짝지어 주세요")
                         .font(Font.custom("GmarketSansMedium", size: 20))
@@ -68,10 +74,16 @@ struct MatchingGameView: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    print("Button clicked")
-                }) {
-                    Image("btn_sound")
+                VStack{
+                    Button(action: {
+                        print("Button clicked")
+                    }) {
+                        Image("btn_sound")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 78, height: 78)
+                    }
+                    Spacer()
                 }
             }
             .padding(.top, 50)
