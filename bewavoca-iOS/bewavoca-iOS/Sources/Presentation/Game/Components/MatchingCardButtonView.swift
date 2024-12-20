@@ -124,8 +124,11 @@ struct MatchingCardButtonView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 self.cards[firstIndex].state = .defaultState
                 self.cards[secondIndex].state = .defaultState
-                currentMatchState = .defaultState
             }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            currentMatchState = .defaultState
         }
         
         selectedIndices.removeAll()
