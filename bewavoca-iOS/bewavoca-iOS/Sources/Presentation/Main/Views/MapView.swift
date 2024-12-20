@@ -58,7 +58,6 @@ struct MapView: View {
     
     
     private func destinationView(for stage: Stage) -> some View {
-        print("?????????????//")
         switch stage {
         case .garden:
             return AnyView(NextSampleGameView(test: "\(stage) garden"))

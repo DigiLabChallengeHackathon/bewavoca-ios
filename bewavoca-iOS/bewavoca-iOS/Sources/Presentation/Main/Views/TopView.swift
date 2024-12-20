@@ -4,7 +4,7 @@ struct TopView: View {
     @Binding var userData: UserData
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
+            VStackLayout(alignment: .leading) {
                 ProfileCard(character: userData.character, nickName: userData.nickname)
                 
                 NavigationLink(destination: NextSampleGameView(test: "설정")) {
@@ -14,10 +14,11 @@ struct TopView: View {
                 .padding(.top, 34)
                 .buttonStyle(EffectButtonStyle())
             }
+            .frame(width: 275)
             
             Spacer()
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .center) {
                 Image("image_brand")
                     .padding(.top, 11)
                     .frame(width: 293, height: 101)
@@ -26,12 +27,18 @@ struct TopView: View {
             
             Spacer()
             
-            Image("image_compass")
-                .frame(width: 167, height: 151)
+            VStack {
+                Image("image_compass")
+                    .frame(width: 167, height: 151)
+                    .padding(.leading, 107)
+                Spacer()
+            }
+            .frame(maxHeight: .infinity, alignment: .topTrailing)
         }
-        .frame(width:1366, height: 270)
+        .frame(height: 270)
         .padding(.top, 52)
         .padding(.horizontal, 46)
+
     }
 }
 
