@@ -59,25 +59,25 @@ enum CharacterData {
             gridImage: "character_selectList_rabong",
             requiredStage: 3
         ),
-        .halla: CharacterInfo(
-            name: "한라",
-            description: "한라의 설명...",
-            selectedImage: "character_selected_halla",
-            gridImage: "character_selectList_halla",
-            requiredStage: 4
-        ),
         .jamneow: CharacterInfo(
             name: "잠녀",
             description: "잠녀의 설명...",
             selectedImage: "character_selected_jamneow",
             gridImage: "character_selectList_jamneow",
-            requiredStage: 5
+            requiredStage: 4
         ),
         .jejuma: CharacterInfo(
             name: "제주마",
             description: "제주마의 설명...",
             selectedImage: "character_selected_jejuma",
             gridImage: "character_selectList_jejuma",
+            requiredStage: 5
+        ),
+        .halla: CharacterInfo(
+            name: "한라",
+            description: "한라의 설명...",
+            selectedImage: "character_selected_halla",
+            gridImage: "character_selectList_halla",
             requiredStage: 6
         )
         // ... 다른 캐릭터들의 정보
