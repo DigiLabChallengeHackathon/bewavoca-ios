@@ -13,7 +13,6 @@ struct MatchingGameView: View {
                             Spacer()
                         }
                         .background(Color.clear)
-                        .padding(.top, 54)
                     }
                 }
                 
