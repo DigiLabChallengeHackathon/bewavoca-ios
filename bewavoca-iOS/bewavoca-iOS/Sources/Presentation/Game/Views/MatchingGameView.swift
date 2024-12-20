@@ -24,9 +24,12 @@ struct MatchingGameView: View {
                         Image(getCharacterImageName(for: currentMatchState))
                             .resizable()
                             .scaledToFit()
-                            .frame(maxWidth: 275)
+                            .frame(width: 275, height: 338)
                     }
-                }.padding(-43)
+                }
+                .frame(width: 1366, height: 1024)
+                .padding(.bottom, 41)
+                .padding(.trailing, 51)
             }
         }
     }
