@@ -1,5 +1,27 @@
 import SwiftUI
 
+// 추후 스테이지, 게임 종류 등의 ENUM 들을 한 곳에 정리 예정
+enum GameType: CaseIterable, CustomStringConvertible {
+    case ox, choice, match
+    
+    var level: Int {
+        switch self {
+        case .ox: return 1
+        case .choice: return 2
+        case .match: return 3
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .ox: return "ox"
+        case .choice: return "choice"
+        case .match: return "match"
+        }
+    }
+}
+
+
 struct ResultGameView: View {
     
     @State private var userData = UserData(userId: 4, nickname: "김태인", character: 1, stage: 4, level: 1)
@@ -7,6 +29,7 @@ struct ResultGameView: View {
     var totalQuestions: Int
     var correctAnswers: Int
     var stage: Stage
+    var gameType: GameType
     
     var body: some View {
         NavigationStack {
@@ -90,7 +113,6 @@ struct ResultGameView: View {
         }
     }
     
-    // 맞춘 갯수에 따라 메시지 변경
     private func getResultMessage() -> String {
         if correctAnswers >= totalQuestions / 2 {
             return "대단해요"
@@ -99,12 +121,11 @@ struct ResultGameView: View {
         }
     }
     
-    // 게임 레벨을 반환하는 함수 (임의로 지정, 실제 게임 레벨 로직에 맞게 수정 가능)
     private func getGameLevel() -> Int {
-        return 2 // 예시로 2단계로 설정 (필요한 로직에 맞게 수정)
+        return gameType.level
     }
 }
 
 #Preview {
-    ResultGameView(totalQuestions: 10, correctAnswers: 7, stage: .garden)
+    ResultGameView(totalQuestions: 10, correctAnswers: 7, stage: .garden, gameType: .ox)
 }
