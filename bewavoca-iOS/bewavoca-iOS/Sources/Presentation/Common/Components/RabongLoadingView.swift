@@ -23,7 +23,7 @@ struct RabongLoadingView: View {
     }
     
     private func startLoadingTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 2.4, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
             withAnimation {
                 showFirstView.toggle()
             }
@@ -32,7 +32,6 @@ struct RabongLoadingView: View {
 }
 
 struct JumpRabongAnimationView: View {
-    @State private var scale: CGFloat = 1.0
     @State private var offsetY: CGFloat = 0
     
     var body: some View {
@@ -41,7 +40,6 @@ struct JumpRabongAnimationView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 170, height: 168)
-                .scaleEffect(scale)
                 .offset(y: offsetY)
                 .onAppear {
                     startBouncingAnimation()
@@ -51,10 +49,9 @@ struct JumpRabongAnimationView: View {
     
     private func startBouncingAnimation() {
         withAnimation(
-            Animation.interpolatingSpring(mass: 10, stiffness: 100, damping: 10, initialVelocity: 0)
-                .repeatCount(3, autoreverses: true)
+            Animation.interpolatingSpring(mass: 5, stiffness: 200, damping: 5, initialVelocity: 0)
+                .repeatCount(2, autoreverses: true)
         ) {
-            scale = 1.1
             offsetY = -40
         }
     }
